@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="jumbotron">
+        <!-- Adds another Select File: Section --> 
+        <p><button onclick="myFunction()">Add Video</button></p>
+        <script>
+            var i = 0;
+            function myFunction() {
+                var original = document.getElementById('video' + i);
+                var clone = original.cloneNode(true);
+                i++;
+                clone.id = "video" + i;
+                original.parentNode.appendChild(clone);
+            }
+        </script>
+        </div>
+        @using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div>
+                <!-- A checkbox for replacing a showcase -->
+                @Html.CheckBox("UseShowcase", false)
+                Upload From Showcase
+                <br />
+                <label for="showcase"> Showcase Address:</label>
+                <input type="text" id="showcase" name="showcase">
+            </div>
+            <br />
+
+            <div align="center">
+                <!-- The Access Token of your Vimeo Account -->
+                <label for="token"> Access Token:</label>
+
+                <input type="text" id="token" name="token">
+
+                <button type="submit"> Upload Videos </button>
+            </div>
+
+
+            <div class="videos">
+                <!-- Allows you to upload a file and insert a Video Address to be overwritten -->
+                <div class="col-md-4" id="video0">
+                    <label>Select File:</label>
+                    <input type="file" id="files" name="file"
+                           accept="video/mp4">
+
+                    <form action="/action_page.php">
+                        <label for="fname">Video Address:</label>
+                        <input type="text" id="fname" name="fname"><br><br>
+                    </form>
+                </div>
+
+            </div>
+        }
